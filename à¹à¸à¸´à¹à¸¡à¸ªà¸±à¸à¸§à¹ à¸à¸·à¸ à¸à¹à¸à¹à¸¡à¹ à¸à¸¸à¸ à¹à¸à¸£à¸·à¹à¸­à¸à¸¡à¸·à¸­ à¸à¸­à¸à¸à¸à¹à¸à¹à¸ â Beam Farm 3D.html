@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>เครื่องมือเพิ่มสัตว์ พืช ต้นไม้ ชุด เครื่องมือ ของตกแต่ง – Beam Farm 3D</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--tx:#1f2421;--mut:#667068;--bd:#ddd8cc;--ac:#2e7d32;--ac2:#e8f3e8;--code:#14201a;--codetx:#d7f5dc;--warn:#b45309;--warnbg:#fff4e0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181a;--card:#1d2326;--tx:#e8ece9;--mut:#9aa6a0;--bd:#32393c;--ac:#6fcf7a;--ac2:#1f3324;--code:#0b100e;--codetx:#c9f2cf;--warn:#f5b255;--warnbg:#33260f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14181a;--card:#1d2326;--tx:#e8ece9;--mut:#9aa6a0;--bd:#32393c;--ac:#6fcf7a;--ac2:#1f3324;--code:#0b100e;--codetx:#c9f2cf;--warn:#f5b255;--warnbg:#33260f;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,-apple-system,"Noto Sans Thai","Sarabun",sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0}h2{font-size:17px;margin:0 0 10px}
+.s{color:var(--mut);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:14px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tabs button{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 14px;font:inherit;cursor:pointer}
+.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+label{display:block;font-size:13px;color:var(--mut)}
+input,select{width:100%;margin-top:3px;padding:8px 10px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);font:inherit}
+input[type=checkbox]{width:auto;margin-right:6px}input[type=color]{padding:2px;height:38px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;background:var(--ac2);color:var(--ac);margin-left:6px}
+.tag.o{background:var(--warnbg);color:var(--warn)}
+.step h3{margin:0 0 6px;font-size:15px;display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.n{background:var(--ac);color:#fff;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;margin-right:6px}
+.path{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--ac2);color:var(--ac);padding:2px 7px;border-radius:6px;word-break:break-all}
+.where{margin:6px 0;font-size:14px}
+.find{font-size:13px;color:var(--mut);margin:4px 0}
+.find code{background:var(--bg);border:1px solid var(--bd);padding:1px 6px;border-radius:5px;font-size:12.5px;word-break:break-all}
+.cw{position:relative}
+pre{margin:6px 0;background:var(--code);color:var(--codetx);padding:12px;border-radius:10px;overflow-x:auto;font-size:12.5px;line-height:1.5}
+button.cp{position:absolute;top:12px;right:6px;border:0;border-radius:7px;padding:3px 9px;font-size:12px;background:var(--ac);color:#fff;cursor:pointer}
+.note{font-size:13px;color:var(--mut)}
+.warn{background:var(--warnbg);color:var(--warn);border-radius:9px;padding:8px 12px;margin:6px 0;font-size:14px}
+.sum{display:flex;flex-wrap:wrap;gap:6px}
+ul{margin:6px 0;padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+<h1>🌾 เพิ่มสัตว์ พืช ต้นไม้ ชุด เครื่องมือ ของตกแต่ง</h1>
+<p class="s">เลือกหมวด กรอกข้อมูล แล้วทำตามขั้นตอนทีละไฟล์ (ตำแหน่งอ้างอิงจากโค้ดใน realistic-fishing-3d.zip) สำหรับอาคาร ดูเครื่องมืออีกตัวที่ทำไว้ก่อนหน้า</p>
+<div class="tabs" id="tabs"></div>
+<div class="card"><div class="grid" id="form"></div></div>
+<div id="out"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const q=s=>String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const V={};
+const HATS='straw,cap,cowboy,bucket,crown,none',ACCS='none,bandana,apron,cape,backpack';
+const CATS={
+animal:{label:'🐄 สัตว์',f:[['id','รหัสสัตว์ (อังกฤษพิมพ์เล็ก)','rabbit'],['th','ชื่อไทย','กระต่ายขนฟู'],['en','ชื่ออังกฤษ','Fluffy Rabbit'],['icon','ไอคอน','🐰'],['desc','คำอธิบาย','กระต่ายตัวอ้วนกระโดดเล่นในฟาร์ม (rabbit.glb)'],['walk','ความเร็วเดิน','1.4','n'],['scale','สเกล','1.0','n'],['cost','ราคา (เหรียญ)','800','n'],['gem','ราคาเพชร (0 = ไม่ใช้)','0','n'],['sw','สีสวอตช์','#f5e6d3','c']]},
+crop:{label:'🌱 พืชผล',f:[['id','รหัสพืช','rice'],['th','ชื่อไทย','ข้าวเปลือก'],['en','ชื่ออังกฤษ','Rice'],['seedTh','ชื่อเมล็ด (ไทย)','เมล็ดข้าวเปลือก'],['seedEn','ชื่อเมล็ด (EN)','Rice Seeds'],['descEn','คำอธิบาย (EN)','Golden paddy grain for the farm market.'],['desc','คำอธิบาย (ไทย)','ข้าวเปลือกรวงทองขายได้ราคาดี'],['grow','เวลาโต (วินาที)','180','n'],['seed','ราคาเมล็ด','8','n'],['sell','ราคาขาย','38','n'],['xp','XP','28','n'],['start','เมล็ดเริ่มต้นในกระเป๋า','0','n'],['col','สีหลัก','#d4b44a','c'],['acc','สีเน้น','#f5e08a','c'],['icon','ไอคอน','🌾']]},
+tree:{label:'🌳 ต้นไม้',f:[['id','รหัสต้นไม้','mango'],['th','ชื่อไทย','ต้นมะม่วง'],['en','ชื่ออังกฤษ','Mango Tree'],['sap','ชื่อกล้า (ไทย)','กล้ามะม่วงน้ำดอกไม้'],['sapEn','ชื่อกล้า (EN)','Mango Sapling'],['desc','คำอธิบาย (ไทย)','มะม่วงสุกหวานหอม เก็บผลได้ต่อเนื่อง'],['descEn','คำอธิบาย (EN)','Sweet golden mangoes harvested in rounds.'],['grow','เวลาโต (วินาที)','1500','n'],['cost','ราคากล้า','150','n'],['sell','ราคาผล','260','n'],['wood','ไม้ที่ได้','4','n'],['xp','XP','240','n'],['lv','เลเวลปลดล็อก (0 = ไม่ใช้)','0','n'],['rounds','เก็บผลได้กี่รอบ (0 = ไม่ใช้)','0','n'],['col','สีใบ','#2e7d32','c'],['fc','สีผล','#f59e0b','c'],['icon','ไอคอน','🥭'],['glb','ใช้ไฟล์ GLB? (ชื่อ <id>_tree.glb)','1','k']]},
+outfit:{label:'👒 ชุดแต่งกาย',f:[['kind','ประเภท','hat','s:hat,accessory,preset,color'],['id','รหัส (อังกฤษพิมพ์เล็ก)','beret'],['th','ชื่อไทย','เบเร่ต์'],['en','ชื่ออังกฤษ','Beret'],['icon','ไอคอน','🎩'],['hex','สี (ใช้กับประเภท color)','#a855f7','c'],['pHat','พรีเซ็ต: หมวก','straw','s:'+HATS],['pAcc','พรีเซ็ต: ของประดับ','none','s:'+ACCS],['cHat','พรีเซ็ต: สีหมวก','#f2c14e','c'],['cShirt','พรีเซ็ต: สีเสื้อ','#d9483b','c'],['cBot','พรีเซ็ต: สีกางเกง','#245582','c'],['cShoe','พรีเซ็ต: สีรองเท้า','#4e342e','c'],['cAcc','พรีเซ็ต: สีของประดับ','#eab308','c']]},
+tool:{label:'🪓 เครื่องมือ',f:[['id','รหัสเครื่องมือ','rake'],['th','ชื่อไทย','คราดพรวนดิน'],['en','ชื่ออังกฤษ','Garden Rake'],['h','ความสูงโมเดลในมือ (ม.)','0.8','n'],['y','ยกตำแหน่งแกน Y','0.1','n']]},
+rock:{label:'🪨 ของตกแต่ง (ธรรมชาติ)',f:[['id','รหัส (snake_case)','mossy_stump'],['th','ชื่อไทย','ตอไม้ขึ้นมอส'],['en','ชื่ออังกฤษ','Mossy Stump'],['desc','คำอธิบาย','ตอไม้เก่าปกคลุมมอส ประดับสวนและทางเดิน'],['icon','ไอคอน','🪵'],['span','ขนาดกริด (1 หรือ 2)','1','n'],['cost','ราคา','50','n'],['sw','สีสวอตช์','#6b7d3a','c']]},
+furn:{label:'🪑 เฟอร์นิเจอร์',f:[]}
+};
+let cur='animal';
+const tabs=$('tabs');
+Object.keys(CATS).forEach(k=>{const b=document.createElement('button');b.textContent=CATS[k].label;b.dataset.k=k;b.onclick=()=>{cur=k;drawForm();};tabs.appendChild(b);});
+
+function drawForm(){
+  [...tabs.children].forEach(b=>b.classList.toggle('on',b.dataset.k===cur));
+  const f=$('form'); f.innerHTML='';
+  CATS[cur].f.forEach(([k,l,d,t])=>{
+    const w=document.createElement('label'); w.textContent=l;
+    let i;
+    if(t&&t[0]==='s'){i=document.createElement('select');t.slice(2).split(',').forEach(o=>{const e=document.createElement('option');e.value=e.textContent=o;i.appendChild(e);});i.value=d;}
+    else{i=document.createElement('input');if(t==='n')i.type='number',i.step='any';else if(t==='c')i.type='color';else if(t==='k')i.type='checkbox',i.checked=d==='1';i.value=d;}
+    i.id='f_'+k; w.appendChild(i); f.appendChild(w);
+  });
+  if(cur==='furn')f.innerHTML='<div class="note">หมวกนี้ไม่มีฟอร์ม ดูคำอธิบายด้านล่าง</div>';
+  render();
+}
+$('form').addEventListener('input',render);
+$('form').addEventListener('change',render);
+
+function step(o){
+  const d=document.createElement('div'); d.className='card step';
+  d.innerHTML='<h3><span class="n">'+o.n+'</span><span class="path"></span><span class="tag'+(o.opt?' o':'')+'">'+(o.opt?'ทางเลือก':'จำเป็น')+'</span></h3>'+(o.where?'<div class="where"></div>':'')+(o.find?'<div class="find">ค้นหาในไฟล์: <code></code></div>':'')+(o.code?'<div class="cw"><button class="cp">คัดลอก</button><pre></pre></div>':'')+(o.note?'<div class="note"></div>':'');
+  d.querySelector('.path').textContent=o.file;
+  if(o.where)d.querySelector('.where').textContent=o.where;
+  if(o.find)d.querySelector('.find code').textContent=o.find;
+  if(o.code){d.querySelector('pre').textContent=o.code;const b=d.querySelector('.cp');
+    b.onclick=()=>navigator.clipboard.writeText(o.code).then(()=>{b.textContent='คัดลอกแล้ว ✓';setTimeout(()=>b.textContent='คัดลอก',1400)}).catch(()=>{b.textContent='กดค้างที่โค้ดเพื่อคัดลอก'});}
+  if(o.note)d.querySelector('.note').textContent=o.note;
+  return d;
+}
+const sl=(a)=>a.filter(x=>x!==null&&x!==undefined&&x!=='').join('\n');
+const G=(id)=>{const e=$('f_'+id);return e?(e.type==='checkbox'?e.checked:e.value.trim()):'';};
+const N=(id)=>+G(id)||0;
+const TSC='เสร็จแล้วรัน npx tsc --noEmit ถ้ามีที่อื่นใช้ Record ของชนิดนี้ จะฟ้อง error บอกตำแหน่งที่ต้องเติมค่าให้ครบ';
+
+const GEN={
+animal(){
+  const id=G('id'),C=cap(id);let n=0;
+  const def=sl(['  '+id+': {',"    id: '"+id+"',","    name: '"+q(G('th'))+"',","    nameEn: '"+q(G('en'))+"',","    icon: '"+q(G('icon'))+"',","    desc: '"+q(G('desc'))+"',",'    walkSpeed: '+N('walk')+',','    scale: '+N('scale')+',','    buyCost: '+N('cost')+',',N('gem')>0?'    gemCost: '+N('gem')+',':null,"    swatch: '"+G('sw')+"',",'  },']);
+  return [
+  {n:++n,file:'public/'+id+'.glb',where:'วางไฟล์โมเดลชื่อ '+id+'.glb ใน public/ (ระบบหาไฟล์ /<รหัส>.glb ให้เองสำหรับไอคอนและโมเดล)'},
+  {n:++n,file:'src/types/animals.ts',where:'บรรทัด export type AnimalType: เติมรหัสใหม่ต่อท้าย',find:"'horse' | 'sheep';",code:"'horse' | 'sheep' | '"+id+"';",note:'แทนที่ข้อความที่ค้นหา ถ้าคุณเคยเพิ่มสัตว์ตัวอื่นไว้แล้ว ให้ต่อท้ายตัวสุดท้ายแทน'},
+  {n:++n,file:'src/types/animals.ts',where:'ANIMAL_DEFS: วางบล็อกนี้ต่อจากบล็อก sheep: { … }, ก่อนปีกกาปิด };',find:'sheep: {',code:def},
+  {n:++n,file:'src/components/3d/animals/'+C+'Animal.ts',where:'สร้างไฟล์ควบคุมสัตว์ใหม่โดยคัดลอกจาก SheepAnimal.ts (ตัวที่ใช้ GLB และอนิเมชัน) แล้วแทนชื่อ รันใน terminal:',
+    code:'cd src/components/3d/animals\ncp SheepAnimal.ts '+C+'Animal.ts\nsed -i \'s/Sheep/'+C+'/g; s/sheep/'+id+'/g; s/SHEEP/'+id.toUpperCase()+'/g\' '+C+'Animal.ts',
+    note:'จากนั้นเปิดไฟล์ใหม่ แก้ค่า '+id.toUpperCase()+'_GLB_CONFIG (targetHeight, yRotation, strideLength, maxWalkSpeed), nameTh, nameEn, emoji ให้ตรงกับสัตว์ของคุณ และตรวจว่า path โมเดลเป็น /'+id+'.glb'},
+  {n:++n,file:'src/components/3d/animals/index.ts',where:'เพิ่ม import ต่อจากบรรทัด import ของ SheepAnimal',find:"import { sheepSpecies, SheepAnimalController } from './SheepAnimal';",code:"import { "+id+"Species, "+C+"AnimalController } from './"+C+"Animal';"},
+  {n:++n,file:'src/components/3d/animals/index.ts',where:'บล็อก export { … }: เติมสองบรรทัดนี้ต่อจาก sheepSpecies, ก่อนปีกกาปิด',find:'sheepSpecies,',code:'  '+C+'AnimalController,\n  '+id+'Species,'},
+  {n:++n,file:'src/components/3d/animals/index.ts',where:'ANIMAL_SPECIES_REGISTRY: เติมบรรทัดนี้ต่อจาก sheep: sheepSpecies,',find:'sheep: sheepSpecies,',code:'  '+id+': '+id+'Species,'},
+  {n:++n,file:'src/utils/offlineAssets.ts',opt:1,where:'PREPARED_GLB_ASSETS: เติมก่อน ] as const;',code:"  '/"+id+".glb',"},
+  {n:++n,file:'src/hooks/useFarmPlacement.ts',opt:1,where:'ฟังก์ชันเล่นเสียงตอนแตะสัตว์ (ค้นหา farmAudio.playHorseSound) เพิ่มเสียงเฉพาะตัว ถ้าไม่เพิ่มจะใช้เสียงเริ่มต้น',find:"else if (animal.type === 'horse') farmAudio.playHorseSound();"},
+  {n:++n,file:'(ไม่ต้องแก้)',where:'เมนูก่อสร้างแท็บสัตว์ (BuildUI วนจาก ANIMAL_DEFS), ชื่อสองภาษา (getAnimalName), ไอคอน และการเซฟ ทำงานเองจาก ANIMAL_DEFS',note:TSC}];
+},
+crop(){
+  const id=G('id'),C=cap(id);let n=0;
+  const def=sl(['  '+id+': {',"    id: '"+id+"',","    name: '"+q(G('th'))+"',","    nameEn: '"+q(G('en'))+"',","    seedName: '"+q(G('seedTh'))+"',",'    growthTimeSeconds: '+N('grow')+',','    seedCost: '+N('seed')+',','    sellPrice: '+N('sell')+',','    xpReward: '+N('xp')+',',"    color: '"+G('col')+"',","    accentColor: '"+G('acc')+"',","    iconEmoji: '"+q(G('icon'))+"',","    description: '"+q(G('desc'))+"',",'  },']);
+  const meth=sl(['  private build'+C+'(group: THREE.Group, s: number) {','    const mat = new THREE.MeshStandardMaterial({ color: '+G('col').replace('#','0x')+', roughness: 0.7 });','    for (let i = 0; i < 6; i++) {','      const a = (i / 6) * Math.PI * 2;','      const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.012 * s, 0.02 * s, 0.6 * s, 6), mat);','      stem.position.set(Math.cos(a) * 0.12 * s, 0.3 * s, Math.sin(a) * 0.12 * s);','      stem.castShadow = true;','      group.add(stem);','    }','  }']);
+  return [
+  {n:++n,file:'src/types/crops.ts',where:'union CropType: เติมต่อท้าย',find:"| 'strawberry';",code:"| 'strawberry'\n  | '"+id+"';"},
+  {n:++n,file:'src/types/crops.ts',where:'CROP_DEFINITIONS: วางต่อจากบล็อก strawberry: { … }, ก่อนปีกกาปิด };',find:'strawberry: {',code:def},
+  {n:++n,file:'src/hooks/useFarmEconomy.ts',where:'INITIAL_CROPS (ตัว strawberry: 0, แรกในไฟล์): เติมบรรทัดนี้ต่อท้าย',find:'strawberry: 0,',code:'  '+id+': 0,'},
+  {n:++n,file:'src/hooks/useFarmEconomy.ts',where:'INITIAL_SEEDS (ตัว strawberry: 0, ที่สอง): เติมจำนวนเมล็ดเริ่มต้น',find:'strawberry: 0,',code:'  '+id+': '+N('start')+','},
+  {n:++n,file:'src/i18n/translations.ts',where:'CROP_SEED_EN: เติมต่อท้ายรายการ',find:"strawberry: 'Strawberry Seeds',",code:"  "+id+": '"+q(G('seedEn'))+"',"},
+  {n:++n,file:'src/i18n/translations.ts',where:'CROP_DESC_EN: เติมต่อท้ายรายการ',find:"strawberry: 'Sweet fragrant berries prized at the farm market.',",code:"  "+id+": '"+q(G('descEn'))+"',"},
+  {n:++n,file:'src/components/3d/FarmCrops.ts',where:'วางเมธอดวาดต้นพืชใหม่ติดกับ buildStrawberry (ตัวอย่างเป็นก้านพื้นฐาน แก้รูปทรงให้เหมือนพืชของคุณ)',find:'private buildStrawberry(',code:meth,note:'ใช้ material ตัวเดียวร่วมกันเหมือน strawberryMat จะประหยัดกว่าสร้างใหม่ทุกต้น และต้อง dispose ใน dispose() ถ้าสร้างเพิ่ม'},
+  {n:++n,file:'src/components/3d/FarmCrops.ts',where:'switch สองจุด (ค้นหา case \'strawberry\' จะเจอสองบรรทัด) เติมบรรทัดต่อจากแต่ละตัว: จุดแรกใช้ midGroup, 0.7 จุดที่สองใช้ container, 1.0',find:"case 'strawberry':",code:"      case '"+id+"': this.build"+C+"(midGroup, 0.7); break;\n      case '"+id+"': this.build"+C+"(container, 1.0); break;",note:'บรรทัดแรกไปจุดแรก บรรทัดที่สองไปจุดที่สอง'},
+  {n:++n,file:'(ไม่ต้องแก้)',where:'BottomDock, InventoryModal, CoveredPlotQuickBar วนจาก CROP_DEFINITIONS จึงแสดงพืชใหม่เอง',note:TSC}];
+},
+tree(){
+  const id=G('id');let n=0;
+  const def=sl(['  '+id+': {',"    id: '"+id+"',","    name: '"+q(G('th'))+"',","    nameEn: '"+q(G('en'))+"',","    saplingName: '"+q(G('sap'))+"',",'    growthTimeSeconds: '+N('grow')+',','    saplingCost: '+N('cost')+',','    fruitSellPrice: '+N('sell')+',','    woodYield: '+N('wood')+',','    xpReward: '+N('xp')+',',"    color: '"+G('col')+"',","    fruitColor: '"+G('fc')+"',","    iconEmoji: '"+q(G('icon'))+"',","    description: '"+q(G('desc'))+"',",'    isFruitTree: true,',N('lv')>0?'    unlockLevel: '+N('lv')+',':null,N('rounds')>0?'    maxHarvestRounds: '+N('rounds')+',':null,G('glb')?"    modelPath: '/"+id+"_tree.glb',":null,'  },']);
+  const st=[
+  {n:++n,file:'src/types/trees.ts',where:'union TreeType: เติมต่อท้าย',find:"| 'coconut';",code:"| 'coconut' | '"+id+"';"},
+  {n:++n,file:'src/types/trees.ts',where:'TREE_DEFINITIONS: วางต่อจากบล็อก coconut: { … }, ก่อนปีกกาปิด };',find:'coconut: {',code:def}];
+  if(G('glb'))st.unshift({n:0,file:'public/'+id+'_tree.glb',where:'วางไฟล์โมเดลต้นไม้ชื่อ '+id+'_tree.glb ใน public/ (modelPath ด้านล่างชี้ที่ไฟล์นี้) ถ้าไม่ใส่ ระบบใช้โมเดล procedural ตรวจรูปทรงในเกมอีกครั้ง'});
+  st.push({n:0,file:'src/hooks/useFarmEconomy.ts',where:'ค้นหา coconut: 0, จะเจอ 3 จุด (INITIAL_TREE_FRUITS และ state เริ่มต้นของ inventorySaplings กับ inventoryTreeFruits) เติมบรรทัดนี้ต่อท้ายทั้ง 3 จุด',find:'coconut: 0,',code:'  '+id+': 0,'},
+  {n:0,file:'src/i18n/translations.ts',where:'TREE_SAPLING_EN: เติมต่อท้ายรายการ',find:'const TREE_SAPLING_EN',code:"  "+id+": '"+q(G('sapEn'))+"',"},
+  {n:0,file:'src/i18n/translations.ts',where:'TREE_DESC_EN: เติมต่อท้ายรายการ',find:'const TREE_DESC_EN',code:"  "+id+": '"+q(G('descEn'))+"',"},
+  {n:0,file:'src/types/crafting.ts',opt:1,where:'ถ้าต้องการให้ผลไม้ใช้ทำสูตรอาหารหรือเครื่องดื่ม ใส่ fruitsRequired: { '+id+': 1 } ในสูตรที่ต้องการ',find:'fruitsRequired:'},
+  {n:0,file:'(ไม่ต้องแก้)',where:'ราคาขาย รอบเก็บผล การเติบโต เมนูต้นกล้า ใช้จาก TREE_DEFINITIONS เอง',note:TSC});
+  st.forEach((s,i)=>s.n=i+1);return st;
+},
+outfit(){
+  const k=G('kind'),id=G('id');let n=0;
+  if(k==='hat')return [
+  {n:++n,file:'src/types/player.ts',where:'บรรทัด export type HatStyleId',find:"'crown' | 'none';",code:"'crown' | '"+id+"' | 'none';"},
+  {n:++n,file:'src/components/ui/OutfitMenuPanel.tsx',where:'HAT_STYLES_UI: เติมก่อนบรรทัด id: \'none\'',find:"{ id: 'none', icon: '🚫', labelTh: 'ถอดหมวก'",code:"  { id: '"+id+"', icon: '"+q(G('icon'))+"', labelTh: '"+q(G('th'))+"', labelEn: '"+q(G('en'))+"' },"},
+  {n:++n,file:'src/game/player/PlayerOutfitSystem.ts',where:'ฟังก์ชัน populateHatGeometry: ในบล็อก crown ให้วางโค้ดนี้ระหว่างปีกกาปิดของ for loop กับปีกกาปิดของ else-if (บรรทัดว่างก่อน group.traverse) บรรทัดแรกของโค้ดคือปีกกาปิด } ของ crown และบรรทัดสุดท้ายไม่มีปีกกาปิดเพราะใช้ปีกกาเดิมปิด',find:"} else if (style === 'crown') {",code:"  } else if (style === '"+id+"') {\n    const dome = new THREE.Mesh(\n      new THREE.SphereGeometry(0.17, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2),\n      mainMat\n    );\n    dome.position.y = 0.03;\n    dome.castShadow = true;\n    group.add(dome);\n    const band = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.015, 8, 20), accentMat);\n    band.rotation.x = Math.PI / 2;\n    band.position.y = 0.035;\n    group.add(band);",note:'ตัวอย่างเป็นทรงโดม แก้รูปทรงตามต้องการ mainMat คือสีหลักที่ผู้เล่นเลือก accentMat คือสีเน้น'},
+  {n:++n,file:'(ไม่ต้องแก้)',where:'การเซฟชุดเก็บ id ของสไตล์เป็นข้อความ จึงรองรับสไตล์ใหม่ทันที',note:TSC}];
+  if(k==='accessory')return [
+  {n:++n,file:'src/types/player.ts',where:'บรรทัด export type AccessoryStyleId',find:"'cape' | 'backpack';",code:"'cape' | 'backpack' | '"+id+"';"},
+  {n:++n,file:'src/components/ui/OutfitMenuPanel.tsx',where:'ACCESSORY_STYLES_UI: เติมต่อจากบรรทัด backpack',find:"{ id: 'backpack',",code:"  { id: '"+id+"', icon: '"+q(G('icon'))+"', labelTh: '"+q(G('th'))+"', labelEn: '"+q(G('en'))+"' },"},
+  {n:++n,file:'src/game/player/PlayerOutfitSystem.ts',where:'ฟังก์ชัน populateAccessoryGeometry: ต่อจากบล็อก backpack ใช้วิธีเดียวกับหมวก คือวางระหว่างปีกกาปิดของ for loop กับปีกกาปิดของ else-if สุดท้าย',find:"} else if (style === 'backpack') {",code:"  } else if (style === '"+id+"') {\n    const badge = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.018, 8, 18), mainMat);\n    badge.rotation.x = Math.PI / 2;\n    badge.position.set(0, 0.12, 0.1);\n    group.add(badge);",note:'ตัวอย่างเป็นห่วงคล้องคอ ปรับรูปทรงและตำแหน่งตามต้องการ'},
+  {n:++n,file:'(ไม่ต้องแก้)',note:TSC}];
+  if(k==='preset')return [
+  {n:++n,file:'src/types/player.ts',where:'PLAYER_OUTFIT_PRESETS: วางบล็อกนี้ต่อจากรายการสุดท้าย ก่อน ] as const;',find:'] as const;',
+   code:sl(['  {',"    id: '"+id+"',","    icon: '"+q(G('icon'))+"',","    nameTh: '"+q(G('th'))+"',","    nameEn: '"+q(G('en'))+"',",'    config: {',"      hatStyle: '"+G('pHat')+"',","      accessoryStyle: '"+G('pAcc')+"',",'      parts: {',"        hat: { color: '"+G('cHat')+"' },","        shirt: { color: '"+G('cShirt')+"' },","        bottom: { color: '"+G('cBot')+"' },","        shoes: { color: '"+G('cShoe')+"' },","        accessory: { color: '"+G('cAcc')+"' },",'      },','    },','  },']),
+   note:'ใช้ค้นหา ] as const; ที่อยู่ท้าย PLAYER_OUTFIT_PRESETS ในไฟล์นี้'},
+  {n:++n,file:'(หมายเหตุ)',where:'เสื้อ กางเกง รองเท้า เป็นการเปลี่ยนสีหรือลวดลายของโมเดลตัวละครเดิมเท่านั้น ยังไม่มีระบบเสื้อผ้าแบบเปลี่ยนรูปทรง ถ้าต้องการต้องออกแบบใหม่'}];
+  return [
+  {n:++n,file:'src/types/buildings.ts',where:'STRUCTURE_COLOR_PRESETS (พาเลตสีที่ใช้ทั้งปรับสีอาคารและสีชุด): เติมต่อจากบรรทัด charcoal ก่อน ];',find:"id: 'charcoal',",code:"  { id: '"+id+"', name: '"+q(G('th'))+"', nameEn: '"+q(G('en'))+"', hex: '"+G('hex')+"', swatchClass: 'bg-["+G('hex')+"]' },"},
+  {n:++n,file:'(หมายเหตุ)',where:'สีใหม่โผล่ทั้งในเมนูแต่งบ้านและเมนูชุดแต่งกายเอง ไม่ต้องแก้ไฟล์อื่น'}];
+},
+tool(){
+  const id=G('id'),C=cap(id);let n=0;
+  const code=sl(['  // '+C,'  const '+id+'Tool = new THREE.Group();',"  "+id+"Tool.name = 'Tool_"+C+"';",'  const '+id+'Procedural = new THREE.Group();','  const '+id+'Handle = new THREE.Mesh(','    new THREE.CylinderGeometry(0.025, 0.03, 1.0, 8),','    ashWoodMat','  );','  '+id+'Handle.position.y = 0.3;','  '+id+'Procedural.add('+id+'Handle);','  '+id+'Tool.add('+id+'Procedural);','  const '+id+'Glb = new THREE.Group();',"  "+id+"Glb.name = '"+C+"_GLB';",'  '+id+'Tool.add('+id+'Glb);',"  tryAttachToolGlb('/"+id+".glb', "+id+"Glb, "+id+"Procedural, {",'    targetHeight: '+N('h')+',','    posY: '+N('y')+',','  });','  '+id+'Tool.visible = false;','  holder.add('+id+'Tool);',"  targetMap.set('"+id+"', "+id+"Tool);"]);
+  return [
+  {n:++n,file:'public/'+id+'.glb',opt:1,where:'โมเดลในมือ (ไม่มีไฟล์ก็ได้ ระบบจะใช้ด้ามไม้ procedural แทน) ไอคอนก็หาไฟล์ /<รหัส>.glb ให้เอง'},
+  {n:++n,file:'src/types/player.ts',where:'union ToolType: เติมต่อท้าย',find:"| 'drone';",code:"| 'drone'\n  | '"+id+"';"},
+  {n:++n,file:'src/game/player/PlayerTools.ts',where:'ในฟังก์ชันสร้างเครื่องมือ: วางโค้ดนี้ก่อนบรรทัดคอมเมนต์ // 5. TREE SAPLING & SEED BAG',find:'// 5. TREE SAPLING & SEED BAG',code:code,note:'ashWoodMat และ holder เป็นตัวแปรที่มีอยู่แล้วในฟังก์ชันนี้ (ใช้กับขวาน)'},
+  {n:++n,file:'src/utils/farmAutoSave.ts',where:'VALID_TOOLS: เติมต่อจาก \'drone\', ถ้าไม่เติม เครื่องมือนี้จะถูกรีเซ็ตเป็นค่าเริ่มต้นตอนโหลดเซฟ',find:"'drone',\n]);",code:"  '"+id+"',"},
+  {n:++n,file:'src/components/ui/BottomDock.tsx',where:'ปุ่มเลือกเครื่องมือ: คัดลอกบล็อกปุ่มเคียว (ค้นหา handleEquipAndClose(\'sickle\')) ไปวางต่อท้าย แล้วเปลี่ยนเป็น \''+id+'\' ทุกจุด (onClick, activeTool, getToolGlbCandidates) และเปลี่ยนข้อความปุ่มเป็น "'+G('th')+'"',find:"handleEquipAndClose('sickle')"},
+  {n:++n,file:'src/hooks/useFarmWorldHandlers.ts',where:'ตรรกะเมื่อแตะแปลงหรือพื้นด้วยเครื่องมือ (ค้นหา activeTool === \'sickle\') ต้องเขียนเงื่อนไข activeTool === \''+id+'\' และสิ่งที่เครื่องมือทำเอง เครื่องมือเปลี่ยนแค่ของในมือ ไม่ได้มีผลต่อเกมโดยอัตโนมัติ',find:"activeTool === 'sickle' || activeTool === 'hand'",note:TSC}];
+},
+rock(){
+  const id=G('id'),h=id.replace(/_/g,'-');let n=0;
+  const def=sl(['  '+id+': {',"    type: '"+id+"',","    name: '"+q(G('th'))+"',","    nameEn: '"+q(G('en'))+"',","    desc: '"+q(G('desc'))+"',",'    gridSpan: '+N('span')+',','    cost: '+N('cost')+',',"    swatch: '"+G('sw')+"',","    icon: '"+q(G('icon'))+"',","    modelFile: '"+id+".glb',",'  },']);
+  return [
+  {n:++n,file:'public/'+id+'.glb',where:'วางไฟล์โมเดลชื่อ '+id+'.glb (หรือ '+h+'.glb ก็ได้) ใน public/ ระบบหาไฟล์ตามรหัสนี้ให้เอง'},
+  {n:++n,file:'src/types/rocks.ts',where:'union RockType',find:"| 'grass_on_rock';",code:"| 'grass_on_rock' | '"+id+"';"},
+  {n:++n,file:'src/types/rocks.ts',where:'ROCK_DEFS: วางต่อจากบล็อก grass_on_rock: { … }, ก่อนปีกกาปิด };',find:'grass_on_rock: {',code:def,note:'หมวกนี้ใช้ระบบวางแบบกริด (1x1 หรือ 2x2) เหมาะกับของตกแต่งธรรมชาติที่ไม่ต้องมีปุ่มโต้ตอบ ถ้าต้องการโต้ตอบหรือวางอิสระ ใช้เครื่องมือเพิ่มอาคารแทน'},
+  {n:++n,file:'src/utils/offlineAssets.ts',opt:1,where:'PREPARED_GLB_ASSETS: เติมก่อน ] as const;',code:"  '/"+id+".glb',"},
+  {n:++n,file:'src/components/3d/FarmScene.tsx, useFarmWorldHandlers.ts, useFarmTrees.ts',opt:1,where:'ระยะกันชน/กันซ้อนของหินใหญ่ถูกเขียนแยกเฉพาะ rock_large (ค้นหา r.type === \'rock_large\') ถ้าของใหม่ขนาด 2x2 ให้เติมเงื่อนไขเดียวกัน',find:"r.type === 'rock_large'"},
+  {n:++n,file:'(ไม่ต้องแก้)',where:'เมนูแท็บหิน ชื่อ ไอคอน และการเซฟ วนจาก ROCK_DEFS เอง',note:'ถ้าโมเดลไม่ขึ้นตอนวาง ดู FarmRocks.ts ฟังก์ชัน buildPrototypes เพราะมีตัวแทน procedural ให้แค่หินสามแบบเดิม\n'+TSC}];
+},
+furn(){return [];}
+};
+
+function render(){
+  const out=$('out'); out.innerHTML='';
+  if(cur==='furn'){
+    out.innerHTML='<div class="card"><h2>เฟอร์นิเจอร์</h2><ul><li><b>ในโปรเจกต์นี้ยังไม่มีระบบเฟอร์นิเจอร์</b> หน้าต่างภายในบ้าน (HouseInteriorModal) เป็นครัวสำหรับทำอาหารเท่านั้น ไม่มีโครงสร้างให้วางเฟอร์นิเจอร์ในบ้าน</li><li><b>เฟอร์นิเจอร์นอกบ้าน</b> เช่น ม้านั่ง โต๊ะ ป้าย โคมไฟ ทำได้ทันทีด้วยเครื่องมือเพิ่มอาคาร (HOUSE_DEFS) เพราะระบบวางอาคารรองรับของเล็กอยู่แล้ว ตั้ง yard 2–3 และใช้ collisionBox แบบรั้ว (type 19) หรือหิน (type 21) เป็นต้นแบบ</li><li><b>เฟอร์นิเจอร์ในบ้านจริง</b> ต้องสร้างระบบใหม่ ได้แก่ ชนิดข้อมูลเฟอร์นิเจอร์ ระบบวาง/หมุน/เก็บ การเซฟ และพื้นที่ภายในบ้าน เป็นงานขนาดกลาง ควรออกแบบแยกต่างหากก่อนลงมือ</li></ul></div>';
+    return;
+  }
+  const steps=GEN[cur]();
+  const wr=[];
+  if(CATS[cur].f.some(x=>x[0]==='id')&&!/^[a-z][a-z0-9_]*$/.test(G('id')))wr.push('รหัสต้องเป็นตัวอังกฤษพิมพ์เล็ก ตัวเลข หรือ _ และขึ้นต้นด้วยตัวอักษร');
+  wr.forEach(w=>{const x=document.createElement('div');x.className='warn';x.textContent='⚠️ '+w;out.appendChild(x);});
+  const files=[...new Set(steps.map(s=>s.file).filter(f=>f.indexOf('(')!==0))];
+  const sm=document.createElement('div');sm.className='card';
+  sm.innerHTML='<h2>สรุป: แตะ '+files.length+' ไฟล์ ('+steps.length+' ขั้นตอน)</h2><div class="sum"></div>';
+  files.forEach(f=>{const s=document.createElement('span');s.className='path';s.textContent=f;sm.querySelector('.sum').appendChild(s);});
+  out.appendChild(sm);
+  steps.forEach(s=>out.appendChild(step(s)));
+}
+drawForm();
+</script>
+</body>
+</html>

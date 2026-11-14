@@ -1,0 +1,60 @@
+import { CameraPreset, WeatherType } from './GameConfig';
+import { FishingState } from '../systems/fishing/FishingState';
+import { CaughtFishRecord } from '../storage/SaveSchema';
+
+export interface GameHUDState {
+  initialized: boolean;
+  paused: boolean;
+  fishingState: FishingState;
+  castPower: number;
+  aimAngleDeg: number;
+  rodPullX: number;
+  rodPullY: number;
+  fishPullDirX: number;
+  isCounterPulling: boolean;
+  hapticRumbleIntensity: number;
+  lineTensionN: number;
+  maxLineStrengthN: number;
+  optimalTensionMinN: number;
+  optimalTensionMaxN: number;
+  reelDragRatio: number;
+  fishDistanceM: number;
+  waterDepthM: number;
+  lineOutM: number;
+  fishStaminaRatio: number;
+  isNibbling: boolean;
+  hookQuality: 'perfect' | 'good' | null;
+  activeFishCount: number;
+  glbAssetsValidated: boolean;
+  weather: WeatherType;
+  cameraPreset: CameraPreset;
+  level: number;
+  xp: number;
+  xpToNextLevel: number;
+  coins: number;
+  equippedRodId: string;
+  equippedReelId: string;
+  equippedLineId: string;
+  equippedBaitId: string;
+  ownedEquipmentIds: string[];
+  inventory: CaughtFishRecord[];
+  lastResult: {
+    outcome: 'landed' | 'escaped' | 'hook_failed' | 'line_broken';
+    fish?: CaughtFishRecord;
+    isNewRecord?: boolean;
+    coinsEarned?: number;
+    xpEarned?: number;
+  } | null;
+  stats: {
+    totalCasts: number;
+    totalCatches: number;
+    totalEscaped: number;
+    totalLineBreaks: number;
+    biggestWeightKg: number;
+    biggestSpeciesId: string | null;
+  };
+  audioMuted: boolean;
+  audioVolume: number;
+  virtualJoysticks: boolean;
+  hapticsEnabled: boolean;
+}

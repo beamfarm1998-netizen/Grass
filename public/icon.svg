@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2e7d32"/>
+      <stop offset="100%" stop-color="#1b5e20"/>
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff59d"/>
+      <stop offset="100%" stop-color="#fbc02d"/>
+    </linearGradient>
+    <linearGradient id="hillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#66bb6a"/>
+      <stop offset="100%" stop-color="#388e3c"/>
+    </linearGradient>
+    <linearGradient id="barnGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e53935"/>
+      <stop offset="100%" stop-color="#b71c1c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded App Background -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)"/>
+
+  <!-- Morning Sun -->
+  <circle cx="390" cy="130" r="65" fill="url(#sunGrad)" opacity="0.9" filter="url(#shadow)"/>
+
+  <!-- Rolling Hills -->
+  <path d="M-20 420 Q120 300 280 340 T540 330 L540 540 L-20 540 Z" fill="url(#hillGrad)" opacity="0.95"/>
+  <path d="M-20 460 Q160 380 360 410 T540 400 L540 540 L-20 540 Z" fill="#2e7d32"/>
+
+  <!-- Red Barn -->
+  <g filter="url(#shadow)">
+    <!-- Barn Wall -->
+    <rect x="156" y="240" width="200" height="150" rx="6" fill="url(#barnGrad)"/>
+    <!-- Barn Roof (Gable) -->
+    <polygon points="256,150 140,245 372,245" fill="#c62828"/>
+    <polygon points="256,158 152,242 360,242" fill="#d32f2f"/>
+    <!-- White Trim -->
+    <polygon points="256,145 136,245 146,247 256,155 366,247 376,245" fill="#ffffff"/>
+    
+    <!-- Silo / Loft Window -->
+    <circle cx="256" cy="210" r="22" fill="#fff9c4"/>
+    <line x1="256" y1="188" x2="256" y2="232" stroke="#b71c1c" stroke-width="4"/>
+    <line x1="234" y1="210" x2="278" y2="210" stroke="#b71c1c" stroke-width="4"/>
+
+    <!-- Barn Door -->
+    <rect x="216" y="300" width="80" height="90" rx="4" fill="#ffffff"/>
+    <rect x="222" y="306" width="68" height="84" fill="#3e2723"/>
+    <!-- Door X cross -->
+    <line x1="222" y1="306" x2="290" y2="390" stroke="#ffffff" stroke-width="4"/>
+    <line x1="290" y1="306" x2="222" y2="390" stroke="#ffffff" stroke-width="4"/>
+  </g>
+
+  <!-- Golden Wheat Stalks -->
+  <g fill="#ffb300" filter="url(#shadow)">
+    <!-- Left Wheat -->
+    <circle cx="95" cy="360" r="14"/>
+    <circle cx="108" cy="380" r="12"/>
+    <circle cx="82" cy="380" r="12"/>
+    <circle cx="95" cy="400" r="11"/>
+    <path d="M95 360 Q95 440 90 470" stroke="#f57f17" stroke-width="6" fill="none" stroke-linecap="round"/>
+    
+    <!-- Right Wheat -->
+    <circle cx="415" cy="360" r="14"/>
+    <circle cx="428" cy="380" r="12"/>
+    <circle cx="402" cy="380" r="12"/>
+    <circle cx="415" cy="400" r="11"/>
+    <path d="M415 360 Q415 440 420 470" stroke="#f57f17" stroke-width="6" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

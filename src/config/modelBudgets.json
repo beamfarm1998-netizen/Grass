@@ -1,0 +1,25 @@
+{
+  "_comment": "แหล่งความจริงเดียวของงบขนาดโมเดล ใช้ร่วมกันทั้งสคริปต์ scripts/optimize-glb.mjs และโค้ดเกม (src/utils/modelBudget.ts)",
+  "categories": {
+    "plant":     { "label": "พืช/หญ้า/พุ่มไม้",         "maxKB": 500,  "maxTris": 3000,  "maxTexture": 512  },
+    "tree":      { "label": "ต้นไม้",                    "maxKB": 1000, "maxTris": 6000,  "maxTexture": 1024 },
+    "rock":      { "label": "หิน/ท่อนไม้ตกแต่ง",         "maxKB": 500,  "maxTris": 3000,  "maxTexture": 512  },
+    "prop":      { "label": "ของตกแต่งเล็ก (รั้ว เสา เครื่องมือ)", "maxKB": 500, "maxTris": 3000, "maxTexture": 512 },
+    "building":  { "label": "สิ่งปลูกสร้างหลัก",         "maxKB": 3000, "maxTris": 20000, "maxTexture": 2048 },
+    "animal":    { "label": "สัตว์/ตัวละคร (มี animation)", "maxKB": 3000, "maxTris": 10000, "maxTexture": 1024 }
+  },
+  "totals": {
+    "firstLoadMB": 40,
+    "sceneryTrisDesktop": 200000,
+    "sceneryTrisMobile": 80000
+  },
+  "hardLimitMultiplier": 2,
+  "rules": [
+    { "match": "fish|rod|drone|man\\.glb|woman|chicken|cow|horse|sheep|duck", "category": "animal" },
+    { "match": "grass|seaweed|plant|vegetable|crop",                           "category": "plant"  },
+    { "match": "tree|oak|pine|lemon|orange|apple|coconut|palm",                "category": "tree"   },
+    { "match": "rock|stone|log",                                               "category": "rock"   },
+    { "match": "fence|pole|lamp|power-line|fire-escape|hoe|sickle|axe|ax_|wateringcan|trail", "category": "prop" },
+    { "match": ".*",                                                           "category": "building" }
+  ]
+}
